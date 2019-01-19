@@ -2,7 +2,7 @@
   "name": "spartahack-2019",
   "version": "1.0.0",
   "description": "ReFocus",
-  "main": "electron.js",
+  "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
