@@ -1,89 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <title>ReFocus</title>
 
-    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script>
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>if (window.module) module = window.module;</script>
+    <script>
+        if (window.module) module = window.module;
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/localStorage/2.0.1/localStorage.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vuefire/1.4.5/vuefire.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="css/main.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="css/main.css" />
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/materialize.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/vue.js"></script>
     <script>
-           $(document).ready(function(){
-      $('.carousel').carousel();
-    });
+        $(document).ready(function() {
+            $('.carousel').carousel();
+        });
+        $(document).ready(function() {
+            $('.modal').modal();
+        });
     </script>
-  </head>
-  <body>
-      
-      <div id="app_">
-        <div class="row">
-          <div class= "col s12 m12">
-          <div class="carousel carousel-slider center">
-              <div class="carousel-item red white-text" href="#one!" v-for="item in Programs" v-if="item.name.length > 0">
-                <h2>{{ item.name }}</h2>
-                <p class="white-text">This is your first panel</p>
-              </div>
+</head>
+
+<body>
+
+    <div id="app_">
+        <template>
+            <div class="row">
+                <div class="col s12 m12">
+                    <div class="carousel carousel-slider center">
+                        <div class="carousel-item red white-text" href="#one!" v-for="item in Programs" v-if="item.name.length > 0">
+                            <h2>{{ item.name }}</h2>
+                            <p class="white-text">This is your first panel</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-      </div>
     </div>
-  </body>
-  <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
-  <script>
+    <div class="row">
+        <!-- Modal Trigger -->
+        <center>
+            <button class="btn-floating btn-large waves-effect waves-light red modal-trigger" data-target="modal1" href="#modal1"><i class="material-icons">add</i></a>
+        </center>
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Refocus yourself</h4>
+                <p>Website or Desktop App</p>
+                <div class="switch">
+                    <label>
+                        Site
+                        <input type="checkbox" v-model="checked">
+                        <span class="lever"></span> App
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="col s6">
+                        <p> Daily Allowance: {{ checked }}</p>
+                        <div class="input-field inline">
+                            <input id="email_inline" class="validate" v-model="allowance">
+                        </div>
+                    </div>
+                    <div class="col s6" v-show="!checked">
+                        Blocked Website:
+                        <div class="input-field inline">
+                            <input id="email_inline" class="validate" v-model="application">
+                        </div>
+                      </div>
+                    <div class="col s6" v-show="checked">
+                        Blocked Application:
+                        <div class="input-field inline">
+                            <input id="email_inline" type="file" class="validate" v-model="application">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s12">
+                            What would you like to focus on?
+                            <div class="input-field inline"></div>
+                            <input id="email_inline" class="validate" v-model="redirect">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                </div>
+            
+            </template>
+        </div>
+</body>
+
+<script>
     // Initialize Firebase
     var config = {
-      apiKey: "AIzaSyAKiDrcMvQXv_5fzjrzWddKIqcifvUp_ng",
-      authDomain: "refocus-aa483.firebaseapp.com",
-      databaseURL: "https://refocus-aa483.firebaseio.com",
-      projectId: "refocus-aa483",
-      storageBucket: "refocus-aa483.appspot.com",
-      messagingSenderId: "1090353734801"
+        apiKey: "AIzaSyAKiDrcMvQXv_5fzjrzWddKIqcifvUp_ng",
+        authDomain: "refocus-aa483.firebaseapp.com",
+        databaseURL: "https://refocus-aa483.firebaseio.com",
+        projectId: "refocus-aa483",
+        storageBucket: "refocus-aa483.appspot.com",
+        messagingSenderId: "1090353734801"
     };
     firebase.initializeApp(config);
 
-    var database = firebase.database().ref().child("Programs/");
-    var db = 
-    {
+    var database = firebase.database().ref().child("Programs/0"); {
 
-
-};
-
-      var app = new Vue({
+    };
+    const app = new Vue({
         el: '#app_',
         data: {
-          Programs: [
-	{
-    "name": "Reddit",
-		"type": "website",
-		"URL": "www.reddit.com",
-		"DailyHours": "4",
-    "HoursUsed": "0"
-		},
-	{
-    "name": "Youtube",
-    "type": "website",
-    "URL": "www.youtube.com",
-   "DailyHours": "4",
-    "HoursUsed": "0"
-		},
-	{
-    "name": "Fortnite",
-    "type": "program",
-    "path": "C:/Program Files (x86)/Epic Games",
-    "DailyHours": "4",
-    "HoursUsed": "0"
-		}
-  ]
+            Programs: [{
+                "name": "Reddit",
+                "type": "website",
+                "URL": "www.reddit.com",
+                "DailyHours": "4",
+                "HoursUsed": "0"
+            }, {
+                "name": "Youtube",
+                "type": "website",
+                "URL": "www.youtube.com",
+                "DailyHours": "4",
+                "HoursUsed": "0"
+            }, {
+                "name": "Fortnite",
+                "type": "program",
+                "path": "C:/Program Files (x86)/Epic Games",
+                "DailyHours": "4",
+                "HoursUsed": "0"
+            }],
+            checked: 'true',
+            allowance: '',
+            application: '',
+            redirect: ''
         }
-      });
-  </script>
+
+    });
+</script>
+
 </html>
