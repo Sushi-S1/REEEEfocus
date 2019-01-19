@@ -22,6 +22,7 @@ app.on('ready', function(){
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
     // Insert Menu
     Menu.setApplicationMenu(mainMenu);
+    refocus.webContents.openDevTools()
 });
 
 //create menu template
