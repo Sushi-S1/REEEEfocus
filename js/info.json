@@ -1,23 +1,25 @@
 {
-"Programs": {
-	"Reddit": {
-		"type": "website",
-		"URL": "www.reddit.com",
-		"DailyHours": "4",
-    "HoursUsed": "0"
-		},
-	"Youtube": {
-    "type": "website",
-    "URL": "www.youtube.com",
-   "DailyHours": "4",
-    "HoursUsed": "0"
-		},
-	"Fortnite": {
-    "type": "program",
-    "path": "C:/Program Files (x86)/Epic Games",
-    "DailyHours": "4",
-    "HoursUsed": "0"
-		}
+	"Programs": [
+	{
+	"name": "Reddit",
+	"type": "website",
+	"URL": "www.reddit.com",
+	"DailyHours": "4",
+	"HoursUsed": "0"
+	},
+	{
+	"name": "Youtube",
+	"type": "website",
+	"URL": "www.youtube.com",
+	"DailyHours": "4",
+	"HoursUsed": "0"
+	},
+	{
+	"name": "Fortnite",
+	"type": "program",
+	"path": "C:/Program Files (x86)/Epic Games",
+	"DailyHours": "4",
+	"HoursUsed": "0"
 	}
-
+	]
 }
