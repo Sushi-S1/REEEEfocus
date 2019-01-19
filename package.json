@@ -1,0 +1,24 @@
+{
+  "name": "spartahack-2019",
+  "version": "1.0.0",
+  "description": "ReFocus",
+  "main": "electron.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sushi-S1/Spartahack-2019.git"
+  },
+  "author": "Jana Bois Corp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sushi-S1/Spartahack-2019/issues"
+  },
+  "homepage": "https://github.com/Sushi-S1/Spartahack-2019#readme",
+  "dependencies": {
+    "connect": "^3.6.6",
+    "electron": "^4.0.1",
+    "serve-static": "^1.13.2"
+  }
+}
