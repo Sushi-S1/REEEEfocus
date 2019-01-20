@@ -25,6 +25,8 @@ app.on('ready', function(){
   //  refocus.webContents.openDevTools()
 });
 
+
+
 //create menu template
 const mainMenuTemplate = [
     {
