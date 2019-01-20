@@ -19,11 +19,11 @@
 
 </head>
 
-<body onload="dialog = false">
+<body backgroundColor="#2e2e2e"onload="dialog = false">
 
     <div id="app_">
                 <br>
-                <br>    
+                <br>
                 <v-layout row>
                         <v-flex xs12 sm6 offset-sm3>
                           <v-card>
@@ -32,21 +32,21 @@
                               height="200px"
                             >
                             </v-img>
-                    
+
                             <v-card-title primary-title>
                               <div>
                                 <div class="headline">Reddit</div>
-                                
+
                               </div>
                             </v-card-title>
-                    
+
                             <v-card-actions>
                               <v-spacer></v-spacer>
                               <v-btn icon @click="show = !show">
                                 <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
                               </v-btn>
                             </v-card-actions>
-                    
+
                             <v-slide-y-transition>
                               <v-card-text v-show="show">
                                     <p>
@@ -67,21 +67,21 @@
                                   height="200px"
                                 >
                                 </v-img>
-                        
+
                                 <v-card-title primary-title>
                                   <div>
                                     <div class="headline">Fortnite</div>
-                                    
+
                                   </div>
                                 </v-card-title>
-                        
+
                                 <v-card-actions>
                                   <v-spacer></v-spacer>
                                   <v-btn icon @click="show2 = !show2">
                                     <v-icon>{{ show2 ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
                                   </v-btn>
                                 </v-card-actions>
-                        
+
                                 <v-slide-y-transition>
                                   <v-card-text v-show="show2">
                                         <p>
@@ -97,21 +97,21 @@
                           <v-layout row v-for="item in Programs" v-if="item.name.length > 0">
                                 <v-flex xs12 sm6 offset-sm3>
                                   <v-card>
-                                   
+
                                     <v-card-title primary-title>
                                       <div>
                                         <div class="headline">{{item.name}}</div>
-                                        
+
                                       </div>
                                     </v-card-title>
-                            
+
                                     <v-card-actions>
                                       <v-spacer></v-spacer>
                                       <v-btn icon @click="show3 = !show3">
                                         <v-icon>{{ show3 ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
                                       </v-btn>
                                     </v-card-actions>
-                            
+
                                     <v-slide-y-transition>
                                       <v-card-text v-show="show3">
                                         <p>
@@ -124,9 +124,9 @@
                                   </v-card>
                                 </v-flex>
                               </v-layout>
-                          
+
         <!-- Modal Trigger -->
-     
+
 
         <!-- Modal Structure -->
         <v-layout row justify-center>
@@ -145,7 +145,7 @@
                           <v-flex xs12 sm6 md4>
                             <v-text-field v-model="application" label="Website or Path" ></v-text-field>
                           </v-flex>
-                          
+
                           <v-flex xs12>
                             <v-text-field v-model = "redirect" label="Website to redirect to" required></v-text-field>
                           </v-flex>
@@ -158,12 +158,12 @@
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
-                      <v-btn color="blue darken-1" flat @click="addProgram()">Save</v-btn>
+                      <v-btn color="blue darken-1" flat @click="addProgram">Save</v-btn>
                     </v-card-actions>
                   </v-card>
                 </v-dialog>
               </v-layout>
-    
+
     </div>
    <!-- <canvas id="myChart" width="40" height="40"></canvas>-->
 <script>
@@ -245,14 +245,12 @@ var myChart = new Chart(ctx, {
         show2: '',
         show3: '',
         type: ''
-      
+
     },
     methods: {
       addProgram: function() {
-        checkType()
-        if(name == '') {
-            return
-        }else {
+
+
         db.collection("ReFocus").add(
           {
             name: this.name,
@@ -260,9 +258,9 @@ var myChart = new Chart(ctx, {
             redir: this.redirect,
             allowance: this.allowance,
             type: this.type
-            
+
           }
-        )};
+        );
         this.name= '';
         this.application= '';
         this.redirect= '';
@@ -271,18 +269,13 @@ var myChart = new Chart(ctx, {
       },
       deletePrograms: function(Programs) {
         Programs.doc(Programs['.key']).delete();
-      },
-      checkType() {
-          if(checked == true){
-              type = 'Application'
-          }else {
-              type = 'Website'
-          }
+      }
+
 
       }
-    }
-  
-   
+
+
+
 
 });
 
