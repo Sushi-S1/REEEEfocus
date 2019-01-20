@@ -9,7 +9,9 @@
     <script src="https://unpkg.com/vue-firestore"></script>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="js/index.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
@@ -19,77 +21,51 @@
 
     <div id="app_">
         
-            <div>
-            <div class="row">
-                <div class="col s12 m12">
-                    <div class="carousel carousel-slider center">
-                        <div class="carousel-item red white-text" href="#one!" v-for="item in Programs" >
-                            <h2>{{ item.name }}</h2>
-                            <p class="white-text">This is your first panel</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </div>
-    <div class="row">
+            <v-carousel dark hide-delimiters>
+                <v-carousel-item v-for="(item,i) in Programs">
+                <h1> {{item.name}} </h1>
+                </v-carousel-item>
+            </v-carousel>
+    
         <!-- Modal Trigger -->
-        <center>
-            <button class="btn-floating btn-large waves-effect waves-light red modal-trigger" data-target="modal1" href="#modal1"><i class="material-icons">add</i></a>
-        </center>
+     
 
         <!-- Modal Structure -->
-        <div id="modal1" class="modal">
-            <div class="modal-content">
-                <h4>Refocus yourself</h4>
-                <p>Website or Desktop App</p>
-                <div class="switch">
-                    <label>
-                        Site
-                        <input type="checkbox" v-model="checked">
-                        <span class="lever"></span> App
-                    </label>
-                </div>
-                <div class="input-field inline">
-                        <p> Name:</p>
-                        <input id="email_inline" class="validate" v-model="name">
-                    </div>
-                <div class="row">
-                    <div class="col s6">
-                        <p> Daily Allowance:</p>
-                        <div class="input-field inline">
-                            <input id="email_inline" class="validate" v-model.number="allowance">
-                        </div>
-                    </div>
-                    <div class="col s6" v-show="!checked">
-                        Blocked Website:
-                        <div class="input-field inline">
-                            <input id="email_inline" class="validate" v-model="application">
-                        </div>
-                      </div>
-                    <div class="col s6" v-show="checked">
-                        Blocked Application:
-                        <div class="input-field inline">
-                            <!--<input id="email_inline" type="file" class="validate" v-model="application">-->
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col s12">
-                            What would you like to focus on?
-                            <div class="input-field inline"></div>
-                            <input id="email_inline" class="validate" v-model="redirect">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button href="#!" class="modal-close waves-effect waves-green btn-flat" @click='addProgram'>Agree</button>
-                </div>
-            
-            
-        </div>
-    </div>
-    </div>
+        <v-layout row justify-center>
+                <v-dialog v-model="dialog" persistent max-width="600px">
+                  <v-btn slot="activator"  fab dark color="red" dark> <v-icon dark>add</v-icon></v-btn>
+                  <v-card>
+                    <v-card-title>
+                      <span class="headline">ReFocus yourself</span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-container grid-list-md>
+                        <v-layout wrap>
+                          <v-flex xs12 sm6 md4>
+                            <v-text-field v-model="name" label="Name of Program*" required></v-text-field>
+                          </v-flex>
+                          <v-flex xs12 sm6 md4>
+                            <v-text-field v-model="application" label="Website or Path" ></v-text-field>
+                          </v-flex>
+                          
+                          <v-flex xs12>
+                            <v-text-field v-model = "redirect" label="Website to redirect to" required></v-text-field>
+                          </v-flex>
+                          <v-flex xs12>
+                            <v-text-field v-model.number= "allowance" label="Allowance for bad program"></v-text-field>
+                          </v-flex>
+                        </v-layout>
+                      </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
+                      <v-btn color="blue darken-1" flat @click="dialog = false">Save</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-layout>
+    
     </div>
 </body>
 
@@ -123,7 +99,8 @@
         checked: 'true',
         allowance: '',
         application: '',
-        redirect: ''
+        redirect: '',
+        dialog: 'false'
       
     },
     methods: {
@@ -144,6 +121,7 @@
         Programs.doc(Programs['.key']).delete();
       }
     }
+  
    
 
 });
