@@ -19,23 +19,118 @@
 
 </head>
 
-<body>
+<body onload="dialog = false">
 
     <div id="app_">
-        
-            <v-carousel dark hide-delimiters>
-                <v-carousel-item v-for="(item,i) in Programs">
-                <h1> {{item.name}} </h1>
-                <h2>{{item.allowance}}</h2>
-                </v-carousel-item>
-            </v-carousel>
-    
+                <br>
+                <br>    
+                <v-layout row>
+                        <v-flex xs12 sm6 offset-sm3>
+                          <v-card>
+                            <v-img
+                              src="reddit.png"
+                              height="200px"
+                            >
+                            </v-img>
+                    
+                            <v-card-title primary-title>
+                              <div>
+                                <div class="headline">Reddit</div>
+                                
+                              </div>
+                            </v-card-title>
+                    
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn icon @click="show = !show">
+                                <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                              </v-btn>
+                            </v-card-actions>
+                    
+                            <v-slide-y-transition>
+                              <v-card-text v-show="show">
+                                    <p>
+                                            Website: wwww.Reddit.com <br>
+                                            Redirect to : <a href= "www.coolmath.com"> www.coolmath.com </a> <br>
+                                            Time Remaining for today : 2 hours
+                                        </p>
+                              </v-card-text>
+                            </v-slide-y-transition>
+                          </v-card>
+                        </v-flex>
+                      </v-layout>
+                      <v-layout row>
+                            <v-flex xs12 sm6 offset-sm3>
+                              <v-card>
+                                <v-img
+                                  src="fortfort.jpg"
+                                  height="200px"
+                                >
+                                </v-img>
+                        
+                                <v-card-title primary-title>
+                                  <div>
+                                    <div class="headline">Fortnite</div>
+                                    
+                                  </div>
+                                </v-card-title>
+                        
+                                <v-card-actions>
+                                  <v-spacer></v-spacer>
+                                  <v-btn icon @click="show2 = !show2">
+                                    <v-icon>{{ show2 ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                                  </v-btn>
+                                </v-card-actions>
+                        
+                                <v-slide-y-transition>
+                                  <v-card-text v-show="show2">
+                                        <p>
+                                                Application: Fortnite.exe <br>
+                                                Redirect to : <a href= "udemy.com"> udemy.com </a> <br>
+                                                Time Remaining for today : 1 hours
+                                            </p>
+                                  </v-card-text>
+                                </v-slide-y-transition>
+                              </v-card>
+                            </v-flex>
+                          </v-layout>
+                          <v-layout row v-for="item in Programs" v-if="item.name.length > 0">
+                                <v-flex xs12 sm6 offset-sm3>
+                                  <v-card>
+                                   
+                                    <v-card-title primary-title>
+                                      <div>
+                                        <div class="headline">{{item.name}}</div>
+                                        
+                                      </div>
+                                    </v-card-title>
+                            
+                                    <v-card-actions>
+                                      <v-spacer></v-spacer>
+                                      <v-btn icon @click="show3 = !show3">
+                                        <v-icon>{{ show3 ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                                      </v-btn>
+                                    </v-card-actions>
+                            
+                                    <v-slide-y-transition>
+                                      <v-card-text v-show="show3">
+                                        <p>
+                                            Website: {{item.app}} <br>
+                                            Redirect to : <a href= {{item.redir}}> {{item.redir}} </a> <br>
+                                            Time Remaining for today : {{item.allowance_left}} hours
+                                        </p>
+                                      </v-card-text>
+                                    </v-slide-y-transition>
+                                  </v-card>
+                                </v-flex>
+                              </v-layout>
+                          
         <!-- Modal Trigger -->
      
 
         <!-- Modal Structure -->
         <v-layout row justify-center>
-                <v-dialog v-model="dialog" persistent max-width="600px">
+                <v-dialog v-model="dialog"  persistent max-width="600px">
                   <v-btn slot="activator"  fab dark color="red" dark > <v-icon dark>add</v-icon></v-btn>
                   <v-card>
                     <v-card-title>
@@ -70,9 +165,9 @@
               </v-layout>
     
     </div>
-    <canvas id="myChart" width="400" height="400"></canvas>
+   <!-- <canvas id="myChart" width="40" height="40"></canvas>-->
 <script>
-var ctx = document.getElementById("myChart").getContext('2d');
+/*var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -109,6 +204,7 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+*/
 </script>
 </body>
 
@@ -132,6 +228,7 @@ var myChart = new Chart(ctx, {
        db.collection("ReFocus").get().then(function(qS){
             qS.forEach(function(doc){
                self.Programs.push(doc.data())
+               dialog : false
             })
         })
     },
@@ -143,26 +240,45 @@ var myChart = new Chart(ctx, {
         allowance: '',
         application: '',
         redirect: '',
-        dialog: 'false'
+        dialog: 'false',
+        show: '',
+        show2: '',
+        show3: '',
+        type: ''
       
     },
     methods: {
       addProgram: function() {
+        checkType()
+        if(name == '') {
+            return
+        }else {
         db.collection("ReFocus").add(
           {
             name: this.name,
             app: this.application,
             redir: this.redirect,
-            allowance: this.allowance
+            allowance: this.allowance,
+            type: this.type
+            
           }
-        );
+        )};
         this.name= '';
         this.application= '';
         this.redirect= '';
         this.allowance='';
+        this.type='';
       },
       deletePrograms: function(Programs) {
         Programs.doc(Programs['.key']).delete();
+      },
+      checkType() {
+          if(checked == true){
+              type = 'Application'
+          }else {
+              type = 'Website'
+          }
+
       }
     }
   
