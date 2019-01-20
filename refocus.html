@@ -249,10 +249,6 @@ var myChart = new Chart(ctx, {
     },
     methods: {
       addProgram: function() {
-        checkType()
-        if(name == '') {
-            return
-        }else {
         db.collection("ReFocus").add(
           {
             name: this.name,
@@ -262,7 +258,7 @@ var myChart = new Chart(ctx, {
             type: this.type
             
           }
-        )};
+        );
         this.name= '';
         this.application= '';
         this.redirect= '';
@@ -271,20 +267,10 @@ var myChart = new Chart(ctx, {
       },
       deletePrograms: function(Programs) {
         Programs.doc(Programs['.key']).delete();
-      },
-      checkType() {
-          if(checked == true){
-              type = 'Application'
-          }else {
-              type = 'Website'
-          }
+      }
 
       }
-    }
-  
-   
-
-});
+    });
 
 </script>
 
