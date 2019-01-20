@@ -45,3 +45,8 @@ const mainMenuTemplate = [
         ]
     }
 ];
+/*
+function createWindow () {
+    var python = require('child_process').spawn('python', ['./temp.py']);
+ }
+*/
