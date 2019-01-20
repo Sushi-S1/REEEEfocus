@@ -13,12 +13,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
 </head>
 
 <body>
 
     <div id="app_">
-        
+
             <div>
             <div class="row">
                 <div class="col s12 m12">
@@ -85,12 +87,52 @@
                 <div class="modal-footer">
                     <button href="#!" class="modal-close waves-effect waves-green btn-flat" @click='addProgram'>Agree</button>
                 </div>
-            
-            
+
+
         </div>
     </div>
     </div>
     </div>
+    <canvas id="myChart" width="400" height="400"></canvas>
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["1/20/19", "1/21/19", "1/23/19", "1/24/19", "1/25/19", "1/26/19"],
+        datasets: [{
+            label: '# of hours',
+            data: [4, 4, 3, 2, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
 </body>
 
 <script>
@@ -117,14 +159,14 @@
         })
     },
     data: {
-        
+
         Programs: [],
         name: '',
         checked: 'true',
         allowance: '',
         application: '',
         redirect: ''
-      
+
     },
     methods: {
       addProgram: function() {
@@ -144,7 +186,7 @@
         Programs.doc(Programs['.key']).delete();
       }
     }
-   
+
 
 });
 
